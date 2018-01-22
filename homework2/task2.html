@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>
+    Task 2
+  </title>
+  <style>
+    /* button styling */
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-table;
+      font-size: 12px;
+      margin: 2px 2px;
+      cursor: pointer;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3), 0 8px 20px 0 rgba(0, 0, 0, 0.20);
+    }
+
+    #add {
+      font-size: 12pt;
+      font-weight: bold;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h3>
+      Starting Value:
+      <input type="text" id="number" value="10" autocomplete="off"/>
+    </h3>
+  </div>
+  <button id="show">My value!</button>
+  <button onclick="increment()">Increase me!</button>
+  <button onclick="append()">Display me!</button>
+  <div>
+    <h3> The following are the numbers the user wants to display: </h3>
+    <p id="add">10</p>
+  </div>
+
+  <script>
+    // function to display the value
+    document.getElementById("show").addEventListener("click", function() {
+      var currentValue = document.getElementById("number").value;
+      alert(currentValue);
+    });
+
+    // function to increment the value
+    function increment() {
+      var x = parseInt(document.getElementById("number").value, 10);
+      x = isNaN(x) ? 0 : x;
+      x++;
+      document.getElementById("number").value = x;
+    }
+
+
+    // appends the value to the page
+    function append() {
+      var para = document.createElement("p");
+      var node = document.createTextNode(document.getElementById("number").value);
+      para.appendChild(node);
+      var current = document.getElementById("add");
+      current.appendChild(para);
+    }
+  </script>
+</body>
+
+</html>

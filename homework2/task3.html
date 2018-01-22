@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    Task 3
+  </title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .maintitle {
+      text-align: center;
+
+    }
+
+    /* Create columns that floats next to each other */
+
+    .column {
+      float: left;
+      padding: 10px;
+      height: 300px;
+    }
+
+    /* left column with 1/3 width */
+
+    .left {
+      width: 33%;
+    }
+
+    /* right column with 2/3 width */
+
+    .right {
+      width: 67%;
+    }
+
+    /* Clear floats after the columns */
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+
+<!-- set default text on load -->
+
+<body onload="changeText(1);">
+  <div>
+    <div class="row">
+      <h1 class="maintitle"> HW02 Task Three </h1>
+    </div>
+    <div class="row">
+      <div class="column left">
+        <nav>
+          <ul>
+            <!-- change text on click -->
+            <li onclick="changeText(1);"><a href="#">Lorem Ipsum</a></li>
+            <li onclick="changeText(2);"><a href="#">99 Bottles</a></li>
+            <li onclick="changeText(3);"><a href="#">Last Thing</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div id="rightcontent" class="column right">
+        <!-- space for selection content -->
+      </div>
+    </div>
+    <footer>
+      <p>&#42;Texts used are from wikipedia. source
+        <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">
+        1 </a>
+        <a href="https://en.wikipedia.org/wiki/99_Bottles_of_Beer">
+          2 </a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // function that sets the article with the right content
+    function changeText(textType) {
+      var textMap = {};
+      // selection text
+      textMap[1] =
+        "<h3>Lorem Ipsum</h3><p>Sed ut perspiciatis, unde omnis iste natus " +
+        " error sit voluptatem accusantium doloremque laudantium, totam rem " +
+        "aperiam eaque ipsa, quae ab illo inventore veritatis et quasi" +
+        " architecto beatae vitae dicta sunt, explicabo. </p> <p>Nemo enim" +
+        " ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit," +
+        " sed quia consequuntur magni dolores eos, qui ratione voluptatem" +
+        " sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia" +
+        " dolor sit amet consectetur adipisci[ng] velit, sed quia non-numquam" +
+        " [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam" +
+        " aliquam quaerat voluptatem.</p> <p> Ut enim ad minima veniam, " +
+        "quis nostrum exercitationem ullam corporis suscipit laboriosam," +
+        " nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure" +
+        " reprehenderit, qui in ea voluptate velit esse, quam nihil" +
+        " molestiae. </p> <p>Consequatur vel illum, qui dolorem eum fugiat," +
+        " quo voluptas nulla pariatur? </p>";
+
+      textMap[2] =
+        "<h3>99 Bottles</h3><p>99 bottles of beer on the wall, 99 bottles" +
+        " of beer. Take one down, pass it around, 98 bottles of beer on " +
+        "the wall </p><p > 98 bottles of beer on the wall, 98 bottles of" +
+        " beer.Take one down, pass it around, 97 bottles of beer on the wall" +
+        " </p> <p> 97 bottles of beer on the wall, 97 bottles of beer." +
+        "Take one down, pass it around, 96 bottles of beer on the wall </p>" +
+        "<p> 96 bottles of beer on the wall, 96 bottles of beer.Take one " +
+        "down, pass it around, 95 bottles of beer on the wall </p>";
+
+      textMap[3] = "<h3>Last Thing</h3><p>This is the third thing</p>";
+
+      document.getElementById("rightcontent").innerHTML = textMap[textType];
+
+    }
+  </script>
+</body>
+
+</html>
