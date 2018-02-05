@@ -151,7 +151,7 @@ defmodule Calc do
       (operator == "-") -> (operand1 - operation2)
       (operator == "*") -> (operand1 * operation2)
       (operator == "/" && operation2 == 0) -> raise "Encountered divide by zero"
-      (operator == "/") -> (operand1 / operation2)
+      (operator == "/") -> div(operand1, operation2)
     end
   end
 
