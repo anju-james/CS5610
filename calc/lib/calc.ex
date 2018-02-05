@@ -21,8 +21,8 @@ defmodule Calc do
   def is_op1_higher_precedence(op1, op2) do
     cond do
       (op2 == "(") -> true
-      ((op1 == "*") && (op2 == "+")) || ((op1 == "/") && (op2 == "+")) ||
-        ((op1 == "*") && (op2 == "-")) || ((op1 == "/") && (op2 == "-")) -> true
+      ((op1 == "*") && ((op2 == "+") || (op2 == "-")))
+      || ((op1 == "/") && (op2 == "+" || (op2 == "-"))) -> true
       true -> false
     end
   end
