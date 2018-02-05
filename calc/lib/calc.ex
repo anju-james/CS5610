@@ -7,7 +7,7 @@ defmodule Calc do
   Function to check if a character is an operator
   """
   def is_operator(op) do
-    if((op == "+") || (op == "-") || (op == "*") || (op == "/")) do
+    if (op == "+") || (op == "-") || (op == "*") || (op == "/") do
       true
     else
       false
@@ -33,7 +33,10 @@ defmodule Calc do
   def recursive_pop_and_compute(op, stacks, check_precedence) do
     cond do
       (check_precedence && (
-        Stack.is_empty(stacks[:operatorStack]) or is_op1_higher_precedence(op, Stack.top(stacks[:operatorStack])))) ->
+        Stack.is_empty(stacks[:operatorStack]) or is_op1_higher_precedence(
+          op,
+          Stack.top(stacks[:operatorStack])
+        ))) ->
         # stop recursion and return
         [
           {:operandStack, stacks[:operandStack]},
@@ -108,15 +111,15 @@ defmodule Calc do
   @doc """
   Helper method to compute/Lookup result from the stack
   """
-  def find_result_from_stack(resultStack) do
+  def find_result_from_stack(result_stack) do
     cond do
-      (Stack.size(resultStack[:operandStack]) == 1) -> Stack.top(resultStack[:operandStack])
-      (Stack.size(resultStack[:operandStack]) == 0) -> raise "Not a valid infix expression"
+      (Stack.size(result_stack[:operandStack]) == 1) -> Stack.top(result_stack[:operandStack])
+      (Stack.size(result_stack[:operandStack]) == 0) -> raise "Not a valid infix expression"
       true ->
         #apply operands to operators
-        finalStack = recursive_pop_and_compute(nil, resultStack, false)
-        if (Stack.size(finalStack[:operandStack]) == 1) do
-          Stack.top(finalStack[:operandStack])
+        final_stack = recursive_pop_and_compute(nil, result_stack, false)
+        if (Stack.size(final_stack[:operandStack]) == 1) do
+          Stack.top(final_stack[:operandStack])
         else
           raise "Not a well formed infix expression"
         end
@@ -129,16 +132,16 @@ defmodule Calc do
   Returns new stack.
   """
   def compute_stack_tops(stacks) do
-    {op2, popedStack} = Stack.pop(stacks[:operandStack])
-    {op1, opndStack} = Stack.pop(popedStack)
-    {operator, operatorStack} = Stack.pop(stacks[:operatorStack])
-    computedResult = compute(op1, op2, operator)
-    currentStacks = [
-      {:operandStack, Stack.push(opndStack, computedResult)},
-      {:operatorStack, operatorStack}
+    {op2, poped_stack} = Stack.pop(stacks[:operandStack])
+    {op1, opnd_stack} = Stack.pop(poped_stack)
+    {operator, operator_stack} = Stack.pop(stacks[:operatorStack])
+    computed_result = compute(op1, op2, operator)
+    current_stacks = [
+      {:operandStack, Stack.push(opnd_stack, computed_result)},
+      {:operatorStack, operator_stack}
 
     ]
-    currentStacks
+    current_stacks
   end
 
 
@@ -161,15 +164,15 @@ defmodule Calc do
   """
   def eval(expression) do
     # preprocess and split string
-    expressionList = expression
-                     |> String.replace("(", " ( ")
-                     |> String.replace(")", " ) ")
-                     |> String.split()
+    expression_list = expression
+                      |> String.replace("(", " ( ")
+                      |> String.replace(")", " ) ")
+                      |> String.split()
 
     try do
       # reduce the elements of the expression
-      resultStack = Enum.reduce(
-        expressionList,
+      result_stack = Enum.reduce(
+        expression_list,
         #accumulator
         [{:operandStack, []}, {:operatorStack, []}],
         fn (element, stacks) ->
@@ -178,7 +181,7 @@ defmodule Calc do
       )
 
       # compute result from the stack
-      find_result_from_stack(resultStack)
+      find_result_from_stack(result_stack)
 
     rescue
       #handle any exception raised
@@ -193,7 +196,7 @@ defmodule Calc do
     IO.gets("Enter expression to evaluate: ")
     |> eval
     |> IO.puts
-    main
+    main()
   end
 
 end

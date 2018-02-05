@@ -92,41 +92,41 @@ defmodule CalcTest do
 
   test "process element" do
     # process number
-    resultStack = Calc.process_element("1", [{:operandStack, []}, {:operatorStack, []}])
-    assert Stack.top(resultStack[:operandStack]) == 1
+    result_stack = Calc.process_element("1", [{:operandStack, []}, {:operatorStack, []}])
+    assert Stack.top(result_stack[:operandStack]) == 1
     # process a operator
-    resultStack = Calc.process_element("+", [{:operandStack, []}, {:operatorStack, []}])
-    assert Stack.top(resultStack[:operatorStack]) == "+"
+    result_stack = Calc.process_element("+", [{:operandStack, []}, {:operatorStack, []}])
+    assert Stack.top(result_stack[:operatorStack]) == "+"
     # process a bracket
-    resultStack = Calc.process_element("(", [{:operandStack, []}, {:operatorStack, []}])
-    assert Stack.top(resultStack[:operatorStack]) == "("
+    result_stack = Calc.process_element("(", [{:operandStack, []}, {:operatorStack, []}])
+    assert Stack.top(result_stack[:operatorStack]) == "("
   end
 
   test "pop until closing bracket" do
     # process number
-    resultStack = Calc.recursive_pop_and_compute_until_closingbracket(
+    result_stack = Calc.recursive_pop_and_compute_until_closingbracket(
       [{:operandStack, [1, 2]}, {:operatorStack, ["+", "("]}]
     )
-    assert Stack.top(resultStack[:operandStack]) == 3
+    assert Stack.top(result_stack[:operandStack]) == 3
     # process with multiple brackets
-    resultStack = Calc.recursive_pop_and_compute_until_closingbracket(
+    result_stack = Calc.recursive_pop_and_compute_until_closingbracket(
       [{:operandStack, [1, 2]}, {:operatorStack, ["+", "(", "+", "("]}]
     )
-    assert Stack.top(resultStack[:operandStack]) == 3
+    assert Stack.top(result_stack[:operandStack]) == 3
   end
 
   test "recursive pop and compute" do
     # with precedence check
-    resultStack = Calc.recursive_pop_and_compute("+",
+    result_stack = Calc.recursive_pop_and_compute("+",
       [{:operandStack, [1, 2]}, {:operatorStack, ["+"]}], true)
-    assert Stack.top(resultStack[:operandStack]) == 3
-    assert Stack.top(resultStack[:operatorStack]) == "+"
+    assert Stack.top(result_stack[:operandStack]) == 3
+    assert Stack.top(result_stack[:operatorStack]) == "+"
 
     # no predence check
-    resultStack = Calc.recursive_pop_and_compute(nil,
+    result_stack = Calc.recursive_pop_and_compute(nil,
       [{:operandStack, [1, 2]}, {:operatorStack, ["+"]}], false)
-    assert Stack.top(resultStack[:operandStack]) == 3
-    assert Stack.is_empty(resultStack[:operatorStack]) == true
+    assert Stack.top(result_stack[:operandStack]) == 3
+    assert Stack.is_empty(result_stack[:operatorStack]) == true
   end
   
 

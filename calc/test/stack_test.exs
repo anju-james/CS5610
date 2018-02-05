@@ -8,24 +8,24 @@ defmodule StackTest do
   end
 
   test "stack top" do
-    assert Stack.top([1,2,3]) == 1
+    assert Stack.top([1, 2, 3]) == 1
     assert Stack.top([1]) == 1
   end
 
   test "stack push" do
-    newStack = Stack.push([], 1)
-    assert [1] == newStack
-    newStack = Stack.push(newStack, 2)
-    assert [2, 1] == newStack
+    new_stack = Stack.push([], 1)
+    assert [1] == new_stack
+    new_stack = Stack.push(new_stack, 2)
+    assert [2, 1] == new_stack
   end
 
   test "stack pop" do
-    {head, newStack} = Stack.pop([1,2])
+    {head, new_stack} = Stack.pop([1, 2])
     assert head == 1
-    assert newStack == [2]
-    {head, newStack} = Stack.pop(newStack)
+    assert new_stack == [2]
+    {head, new_stack} = Stack.pop(new_stack)
     assert head == 2
-    assert newStack == []
+    assert new_stack == []
   end
 
   test "stack size" do
