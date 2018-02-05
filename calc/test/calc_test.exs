@@ -114,6 +114,20 @@ defmodule CalcTest do
     )
     assert Stack.top(resultStack[:operandStack]) == 3
   end
+
+  test "recursive pop and compute" do
+    # with precedence check
+    resultStack = Calc.recursive_pop_and_compute("+",
+      [{:operandStack, [1, 2]}, {:operatorStack, ["+"]}], true)
+    assert Stack.top(resultStack[:operandStack]) == 3
+    assert Stack.top(resultStack[:operatorStack]) == "+"
+
+    # no predence check
+    resultStack = Calc.recursive_pop_and_compute(nil,
+      [{:operandStack, [1, 2]}, {:operatorStack, ["+"]}], false)
+    assert Stack.top(resultStack[:operandStack]) == 3
+    assert Stack.is_empty(resultStack[:operatorStack]) == true
+  end
   
 
 end
