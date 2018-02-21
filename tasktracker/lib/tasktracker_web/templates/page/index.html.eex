@@ -1,0 +1,24 @@
+<div class="jumbotron">
+  <h2><%= gettext "Welcome to %{name}!", name: "Task Tracker" %></h2>
+  <p class="lead">Track And Assign Issues.</p>
+</div>
+
+
+
+ <!--/container-->
+  <!-- session_path(@conn, :create)-->
+<%= form_tag("/session", method: :post, class: 'text-center') do %>
+    <h3>Log In Using Your Email</h3>
+    <div class="form-group">
+        Email
+        <input type="email" name="email" placeholder="user@example.com" >
+    </div>
+<!--passwords come later -->
+    <div class="form-group">
+        <button class="btn btn-primary">Log in</button>
+        <%= link "Register", to: user_path(@conn, :new) %>
+    </div>
+<% end %>
+
+
+

@@ -1,0 +1,20 @@
+<h2>Task Details</h2>
+
+<div class="card">
+  <div class="card-block">
+    <h4 class="card-title"><%= @issue.title %></h4>
+    <p class="card-text"><%= @issue.description %></p>
+  </div>
+  <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Time Spent: </strong> <%= if @issue.time_spent_mins, do: (@issue.time_spent_mins |> to_string) <>" minutes " , else: ""  %></li>
+      <li class="list-group-item"><strong>Assigned User: </strong> <%= @user_name %></li>
+      <li class="list-group-item"><strong>Completed: </strong><%= @issue.completed %></li>
+  </ul>
+  <div class="card-block">
+    <%= link "Back", to: issue_path(@conn, :index), class: "btn btn-default" %>
+    <%= if @issue.user_id == nil || @issue.user_id == @current_user.id do %>
+        <%= link "Edit", to: issue_path(@conn, :edit, @issue), class: "btn btn-primary" %>
+     <% end %>
+  </div>
+</div>
+

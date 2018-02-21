@@ -1,0 +1,110 @@
+<h2>Tasks</h2>
+<div class="row pull-right">
+<span class="pull-right"><%= link "Create Task", to: issue_path(@conn, :new), class: "btn btn-success" %></span>
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#mytasks" role="tab" aria-controls="mytasks" aria-selected="true">My Tasks</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#opentasks" role="tab" aria-controls="opentasks" aria-selected="false">Open Tasks</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#closedtasks" role="tab" aria-controls="closedtasks" aria-selected="false">Closed Tasks</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="mytasks" role="tabpanel" aria-labelledby="my-tasks-tab">
+  <table class="table">
+          <thead>
+            <tr>
+              <th class="col-md-3">Title</th>
+              <th class="col-md-4">Description</th>
+              <th class="col-md-2">Time spent (mins)</th>
+              <th class="col-md-1">Completed</th>
+              <th class="col-md-2 text-right"></th>
+            </tr>
+          </thead>
+          <tbody>
+        <%= for issue <- @my_issues do %>
+            <tr>
+              <td class="col-md-3"><%= issue.title %></td>
+              <td class="col-md-4"><%= issue.description %></td>
+              <td class="col-md-2"><%= issue.time_spent_mins %></td>
+              <td class="col-md-1"><%= issue.completed %></td>
+
+              <td class="col-md-2 text-right">
+                <span><%= link "Show", to: issue_path(@conn, :show, issue), class: "btn btn-default btn-xs" %></span>
+                <span><%= link "Edit", to: issue_path(@conn, :edit, issue), class: "btn btn-primary btn-xs" %></span>
+              </td>
+            </tr>
+        <% end %>
+          </tbody>
+        </table>
+  </div>
+  <div class="tab-pane fade" id="opentasks" role="tabpanel" aria-labelledby="open-tasks-tab">
+  <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-md-2">Title</th>
+                  <th class="col-md-5">Description</th>
+                  <th class="col-md-1">Time spent (mins)</th>
+                  <th class="col-md-2">Assigned User</th>
+                  <th class="col-md-2 text-right"></th>
+                </tr>
+              </thead>
+              <tbody>
+            <%= for issue <- @open_issues do %>
+                <tr>
+                  <td><%= issue.title %></td>
+                  <td><%= issue.description %></td>
+                  <td><%= issue.time_spent_mins %></td>
+                  <td><%= if issue.user_id, do: Enum.find(@users, fn u -> u.id == issue.user_id end).name, else: "" %></td>
+
+                  <td class="text-right">
+                    <span><%= link "Show", to: issue_path(@conn, :show, issue), class: "btn btn-default btn-xs" %></span>
+                    <%= if issue.user_id == nil || issue.user_id == @current_user.id do %>
+                        <span><%= link "Edit", to: issue_path(@conn, :edit, issue), class: "btn btn-primary btn-xs" %></span>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+              </tbody>
+            </table>
+  </div>
+  <div class="tab-pane fade" id="closedtasks" role="tabpanel" aria-labelledby="closed-tasks-tab">
+  <table class="table">
+        <thead>
+          <tr>
+            <th class="col-md-2">Title</th>
+            <th class="col-md-5">Description</th>
+            <th class="col-md-1">Time spent (mins)</th>
+            <th class="col-md-2">Assigned User</th>
+            <th class="col-md-2 text-right"></th>
+          </tr>
+        </thead>
+        <tbody>
+      <%= for issue <- @closed_issues do %>
+          <tr>
+            <td><%= issue.title %></td>
+            <td><%= issue.description %></td>
+            <td><%= issue.time_spent_mins %></td>
+            <td><%= if issue.user_id, do: Enum.find(@users, fn u -> u.id == issue.user_id end).name, else: "" %></td>
+
+            <td class="text-right">
+              <span><%= link "Show", to: issue_path(@conn, :show, issue), class: "btn btn-default btn-xs" %></span>
+              <%= if issue.user_id == nil || issue.user_id == @current_user.id do %>
+                <span><%= link "Edit", to: issue_path(@conn, :edit, issue), class: "btn btn-primary btn-xs" %></span>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+
+
